@@ -1,0 +1,42 @@
+<div>
+    <ul class="slds-grid slds-float_right">
+      <li class="slds-context-bar__item">
+        <button class="slds-button"
+          aria-label="Go To Previous Page"
+          [attr.aria-disabled]="currentPage === 1"
+          [disabled]="currentPage === 1"
+          (click)="onPrevious()"
+        >
+          Previous
+        </button>
+      </li>
+      <li *ngFor="let page of pages;" >
+            <button *ngIf="page !== -1" class="slds-button"
+            [attr.aria-current]="page === currentPage ? 'page' : null"
+            [attr.aria-label]="page === currentPage ? 'Current Page, Page ' + page : 'Go to Page ' + page"
+            [class.current]="page === currentPage"
+            tabindex="0"
+            (click)="onGoTo(page)"
+            (keyup.enter)="onGoTo(page)"
+            >{{ page }}</button>
+            <button *ngIf="page === -1" class="slds-button"
+            [attr.aria-current]="page === currentPage ? 'page' : null"
+            [attr.aria-label]="page === currentPage ? 'Current Page, Page ' + page : 'Go to Page ' + page"
+            [class.current]="page === currentPage"
+            tabindex="0"
+            (click)="onGoTo(page)"
+            (keyup.enter)="onGoTo(page)"
+            >...</button>
+      </li>
+      <li class="slds-context-bar__item slds-button">
+        <button class="slds-button"
+          aria-label="Go To Next Page"
+          [attr.aria-disabled]="currentPage === totalPages"
+          [disabled]="currentPage === totalPages"
+          (click)="onNext()"
+        >
+          Next
+        </button>
+      </li>
+    </ul>
+  </div>

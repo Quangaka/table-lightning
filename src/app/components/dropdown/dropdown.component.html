@@ -1,0 +1,21 @@
+<div nglDropdown [(open)]="open">
+    <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-xx-small" aria-haspopup="true" aria-expanded="true" title="Show More"
+        nglDropdownTrigger>
+        <svg class="slds-button__icon" aria-hidden="true">
+            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+        </svg>
+        <span class="slds-assistive-text">Show More</span>
+    </button>
+    <div class="slds-dropdown slds-dropdown_{{side}}">
+      <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
+        <li class="slds-dropdown__item" *ngFor="let item of menu;">
+            <a role="menuitem" nglDropdownItem (click)="onClick(item.value)">
+                <span class="slds-truncate" title={{item.value}}>
+                    <ngl-icon [iconName]="item.icon" variant="default" size="x-small"></ngl-icon>
+                    {{item.value}}
+                </span>
+            </a>
+        </li>
+      </ul>
+    </div>
+</div>

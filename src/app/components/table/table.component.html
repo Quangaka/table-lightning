@@ -1,0 +1,77 @@
+<app-page-header></app-page-header>
+<table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+    <thead>
+        <tr class="slds-line-height_reset">
+            <th class="" scope="col">
+                <app-dropdown [menu]="menuTHead"
+                                [side]="'left'"
+                                (selectedValue)="getSelectedValue($event)"></app-dropdown>
+            </th>
+            <th *ngFor="let column of configs">
+                <div class="slds-truncate" title="{{column.fieldName}}" (click)="column.sortable&&onSort(column.fieldName, column.direction)">
+                    {{column.label}}
+                    <svg *ngIf="column.sortable === true && column.direction === 'asc'" class="slds-button__icon" aria-hidden="true">
+                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#arrowup"></use>
+                    </svg>
+                    <svg *ngIf="column.sortable === true && column.direction === 'desc'" class="slds-button__icon" aria-hidden="true">
+                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#arrowdown"></use>
+                    </svg>
+                </div>
+            </th>
+            <th class="" scope="col">
+                <div class="slds-truncate" title="Action"></div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of data" class="slds-hint-parent">
+            <th data-label="" scope="row">
+                <div class="slds-truncate">
+                  <input type="checkbox" name="options"
+                    (click)="onClickCheckbox(row.id)"
+                    [checked]="isItemChecked(row.id)"/>
+                </div>
+            </th>
+            <th *ngFor="let column of configs">
+                <div *ngIf="column.type === 'text'">{{row[column.fieldName]}}</div>
+                <div *ngIf="column.type === 'badge'">
+                    <div class="slds-truncate slds-badge slds-theme_success" title="status"
+                        *ngIf="row[column.fieldName] ==='complete'">
+                        <strong>
+                            {{row[column.fieldName]}}
+                        </strong>
+                    </div>
+                    <div class="slds-truncate slds-badge slds-theme_error" title="status"
+                        *ngIf="row[column.fieldName] ==='cancel'">
+                        <strong>
+                            {{row[column.fieldName]}}
+                        </strong>
+                    </div>
+                    <div class="slds-truncate slds-badge slds-theme_warning" title="status"
+                        *ngIf="row[column.fieldName] ==='pending'">
+                        <strong>
+                            {{row[column.fieldName]}}
+                        </strong>
+                    </div>
+                    <div class="slds-truncate slds-badge slds-theme_shade" title="status"
+                        *ngIf="row[column.fieldName] ==='new'">
+                        <strong>
+                            {{row[column.fieldName]}}
+                        </strong>
+                    </div>
+                </div>
+                <div *ngIf="column.type === 'avatar'">
+                    <a>
+                        {{row[column.fieldName]}}
+                    </a>
+                </div>
+            </th>
+            <th class="" scope="col">
+                <app-dropdown [menu]="menuTBody"
+                                [side]="'right'"></app-dropdown>
+            </th>
+        </tr>
+    </tbody>
+</table>
+<app-pagination [currentPage]="currentPage" [totalPages]="totalPages" 
+                    (goTo)="onGoTo($event)" (next)="onNext($event)" (previous)="onPrevious($event)"></app-pagination>
